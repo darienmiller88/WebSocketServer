@@ -11,4 +11,6 @@
 - Rooms will be implemented soon, allowing users to send messages only to other users in the same room
 
 ### Installation
-`go get https://github.com/darienmiller88/WebSocketServer`
+```
+go get https://github.com/darienmiller88/WebSocketServer
+```
