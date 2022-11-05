@@ -1,4 +1,4 @@
-module WebSocketServer
+module github.com/darienmiller88/WebSocketServer
 
 go 1.17
 
