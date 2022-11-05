@@ -12,5 +12,5 @@
 
 ### Installation
 ```
-go get https://github.com/darienmiller88/WebSocketServer
+go get github.com/darienmiller88/WebSocketServer
 ```
