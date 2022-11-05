@@ -17,16 +17,22 @@ type WebsocketServer struct {
 
     //Rooms will map the name of the room as a string to the clients joined in that room.
     Rooms map[string]*client
+
+	//broadcastToAll will determine whether or not messages are sent to all clients, or all except the sender.
+	broadcastToAll bool
 }
 
-//Returns a new instance of a WebsocketServer with all of its values initialized.
-func NewSocketServer () *WebsocketServer{
+//Returns a new instance of a WebsocketServer with all of its values initialized. "broadcastToAll" boolean
+//will determine whether or not server will send messages to all clients, or all except the client who
+//sent the message.
+func NewSocketServer (broadcastToAll bool) *WebsocketServer{
 	return &WebsocketServer{
-		Register:   make(chan *client),
-		Unregister: make(chan *client),
-		Broadcast:  make(chan message),
-		Clients:    make(map[*client]bool),
-		Rooms:      make(map[string]*client),
+		Register:       make(chan *client),
+		Unregister:     make(chan *client),
+		Broadcast:      make(chan message),
+		Clients:        make(map[*client]bool),
+		Rooms:          make(map[string]*client),
+		broadcastToAll: broadcastToAll,
 	}
 }
 
