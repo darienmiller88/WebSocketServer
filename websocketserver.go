@@ -36,8 +36,9 @@ func NewSocketServer (broadcastToAll bool) *WebsocketServer{
 	}
 }
 
-//Function to initialize the server, and allow it to process the clients. It must be run in a seperate goroutine.
-func (ws *WebsocketServer) Start() {
+//Function to initialize the server, and allow it to process the clients. It must be run in a seperate
+//goroutine. It accepts a callback function that will accept a string, which will be the 
+func (ws *WebsocketServer) Start(messageCallBack func(string)) {
 	for {
 		select {
 			case client := <-ws.Register:
@@ -59,7 +60,11 @@ func (ws *WebsocketServer) Start() {
 
 func (ws *WebsocketServer) broadcastMessage(messageToSend message){
 	for client := range ws.Clients {
-		if client.ID != messageToSend.ClientID{
+		if ws.broadcastToAll{
+			if client.ID != messageToSend.ClientID{
+				client.Conn.WriteJSON(messageToSend)
+			}
+		}else{
 			client.Conn.WriteJSON(messageToSend)
 		}
 	}

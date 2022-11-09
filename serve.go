@@ -13,8 +13,7 @@ func ServeWebSocketServer(ws *WebsocketServer, res http.ResponseWriter, req *htt
 	conn, err := upgrade(res, req)
 
 	if err != nil {
-		fmt.Println("err:", err)
-		return
+		panic(err)
 	}
 
 	client := &client{
