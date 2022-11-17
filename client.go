@@ -19,7 +19,7 @@ type message struct {
 }
 
 //Function to continously read incoming messages from the client in real time.
-func (c *client) ProcessMessage(ws *WebsocketServer){
+func (c *client) processMessage(ws *WebsocketServer){
 	defer func() {
         ws.Unregister <- c
         c.Conn.Close()

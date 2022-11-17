@@ -24,5 +24,5 @@ func ServeWebSocketServer(ws *WebsocketServer, res http.ResponseWriter, req *htt
 	//Send the newly created client to the register channel so they can be sent to each client
 	ws.Register <- client
 	fmt.Println("client connected:", client)
-	client.ProcessMessage(ws)
+	client.processMessage(ws)
 }

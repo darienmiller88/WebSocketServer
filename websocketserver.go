@@ -37,7 +37,8 @@ func NewSocketServer (broadcastToAll bool) *WebsocketServer{
 }
 
 //Function to initialize the server, and allow it to process the clients. It must be run in a seperate
-//goroutine. It accepts a callback function that will accept a string, which will be the 
+//goroutine. It accepts a callback function that will accept a string, which will be the message sent
+//from the connected client. 
 func (ws *WebsocketServer) Start(messageCallBack func(string)) {
 	for {
 		select {
@@ -53,6 +54,7 @@ func (ws *WebsocketServer) Start(messageCallBack func(string)) {
 				ws.broadcastMessage(message{Body: fmt.Sprintf("Client %s disconnected...", client.ID), Type: 2, ClientID: client.ID})
 				break
 			case message := <-ws.Broadcast:
+				messageCallBack(message.Body)
 				ws.broadcastMessage(message)
 		}
 	}
